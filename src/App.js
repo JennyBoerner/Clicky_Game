@@ -7,17 +7,35 @@ import friends from "./friends.json";
 class App extends Component {
   // Setting this.state.friends to the friends json array
   state = {
-    friends
+    friends, score: 0, topScore: 0
   };
 
-  removeFriend = id => {
-    // Filter this.state.friends for friends with an id not equal to the id being removed
-    const friends = this.state.friends.filter(friend => friend.id !== id);
-    // Set this.state.friends equal to the new friends array
-    this.setState({ friends });
+  componentDidMount() {
+    this.setState({friends:this.shuffleData(this.state.friends)})
   };
 
-  // Map over this.state.friends and render a FriendCard component for each friend object
+  shuffleData = friends => {
+    let i = friends.length - 1;
+    while (i > 0) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = friends[i];
+      friends[i] = friends[j];
+      friends[j] = temp;
+      i--;
+    }
+    return friends;
+  };
+
+  // guess = x => {
+  // };
+  // guessIncorrect = x => {
+  // };
+  // handleClick = id => {make a copy of friends.json arry using map - new variable to hold id temp
+  // compare what was clicked to the random one was chosen(id) call the above functions within this 
+  // }
+  // reset = x => {
+  // }
+
   render() {
     return (
       <Wrapper>
